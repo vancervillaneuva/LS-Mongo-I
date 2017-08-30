@@ -61,13 +61,13 @@ server.get('/users/:id', (req, res) => {
 server.delete('/users/:id',(req, res) => {
     const { id } = req.params;
 
-    User.forEach((entry, i) => {
-        if (entry.id === id) {
-            user.splice(i,1);
-        }
-    });
+    User.findByIdAndRemove(id, (err, user) => {
+        if (err) throw err;
+        //  User.remove(id).exec();
+        //  User.find({id}).remove().exec();
+          res.json({ success: true, message: 'id successfully deleted'});
+	});
 
-    res.json({user});
 });
 
 
